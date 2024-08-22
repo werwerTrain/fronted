@@ -11,7 +11,7 @@ pipeline {
             steps {
                 script {
                     // 构建前端 Docker 镜像
-                    sh 'docker build -t ${FRONTEND_IMAGE} ./frontend'
+                    bat 'docker build -t ${FRONTEND_IMAGE} ./frontend'
                 }
             }
         }
@@ -20,7 +20,7 @@ pipeline {
             steps {
                 script {
                     // 推送前端 Docker 镜像到 Docker Registry
-                    sh 'docker push ${FRONTEND_IMAGE}'
+                    bat 'docker push ${FRONTEND_IMAGE}'
                 }
             }
         }
@@ -30,7 +30,7 @@ pipeline {
             steps {
                 script {
                     // 应用 Kubernetes 配置
-                    sh 'kubectl apply -f k8s/frontend-deployment.yaml'
+                    bat 'kubectl apply -f k8s/frontend-deployment.yaml'
                 }
             }
         }
@@ -39,7 +39,7 @@ pipeline {
             steps {
                 script {
                     // 应用 Kubernetes 配置
-                    sh 'kubectl apply -f k8s/frontend-service.yaml'
+                    bat 'kubectl apply -f k8s/frontend-service.yaml'
                 }
             }
         }
