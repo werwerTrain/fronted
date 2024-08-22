@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         // 设置 Docker 镜像的标签
-        FRONTEND_IMAGE = "luluplum/frontend:latest"
+        FRONTEND_IMAGE = "3181577132/frontend:latest"
     }
 
     stages {
