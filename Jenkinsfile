@@ -21,19 +21,6 @@ pipeline {
             }
         }
 
-        stage('Push Frontend Image') {
-            steps {
-                script {
-                    // 推送前端 Docker 镜像到 Docker Registry
-                     withCredentials([dockerRegistry(credentialsId: '9b671c50-14d3-407d-9fe7-de0463e569d2', url: 'https://index.docker.io/v1/')]) {
-                        // 在这个块内，Jenkins 会自动处理 Docker 凭证
-                        sh 'docker push ${FRONTEND_IMAGE}'
-                     }
-                }
-            }
-        }
-
-
         stage('Deploy to Kubernetes') {
             steps {
                 script {
