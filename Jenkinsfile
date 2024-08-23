@@ -16,7 +16,7 @@ pipeline {
             steps {
                 script {
                     // 构建前端 Docker 镜像
-                    sh 'docker build -t ${FRONTEND_IMAGE} ./frontend'
+                    sh 'docker build --no-cache -t ${FRONTEND_IMAGE} ./frontend'
                 }
             }
         }
