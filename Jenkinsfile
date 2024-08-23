@@ -25,10 +25,11 @@ pipeline {
             steps {
                 script {
                     // 登录 Docker 镜像仓库
-                    withDockerRegistry([credentialsId: "${DOCKER_CREDENTIALS_ID}"]) {
+                    docker.withRegistry('https://index.docker.io/v1/', DOCKER_CREDENTIALS_ID) {
                         // 推送 Docker 镜像到镜像仓库
                         sh 'docker push ${FRONTEND_IMAGE}'
                     }
+                    
                 }
             }
         }
