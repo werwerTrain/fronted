@@ -5,6 +5,8 @@ pipeline {
         // 设置 Docker 镜像的标签
         FRONTEND_IMAGE = "luluplum/frontend:latest"
         DOCKER_CREDENTIALS_ID = '9b671c50-14d3-407d-9fe7-de0463e569d2'
+        DOCKER_PASSWORD = 'luluplum'
+        DOCKER_USERNAME = 'woaixuexi0326'
     }
 
     stages {
@@ -24,15 +26,17 @@ pipeline {
         stage('Push Docker Image') {
             steps {
                 script {
-                    // 登录 Docker 镜像仓库
-                    docker.withRegistry('https://index.docker.io/v1/', DOCKER_CREDENTIALS_ID) {
-                        // 推送 Docker 镜像到镜像仓库
-                        sh 'docker push ${FRONTEND_IMAGE}'
+                    // 使用凭证登录 Docker 镜像仓库
+                    withCredentials([usernamePassword(credentialsId: DOCKER_CREDENTIALS_ID, usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
+                        sh '''
+                        echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+                        docker push ${FRONTEND_IMAGE}
+                        '''
                     }
-                    
                 }
             }
         }
+        
 
         stage('Deploy to Kubernetes') {
             steps {
