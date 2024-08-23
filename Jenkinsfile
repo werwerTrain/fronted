@@ -4,6 +4,7 @@ pipeline {
     environment {
         // 设置 Docker 镜像的标签
         FRONTEND_IMAGE = "luluplum/frontend:latest"
+        DOCKER_CREDENTIALS_ID = '9b671c50-14d3-407d-9fe7-de0463e569d2'
     }
 
     stages {
@@ -16,7 +17,18 @@ pipeline {
             steps {
                 script {
                     // 构建前端 Docker 镜像
-                    sh 'docker build --no-cache -t ${FRONTEND_IMAGE} ./frontend'
+                    sh 'docker build -t ${FRONTEND_IMAGE} ./frontend'
+                }
+            }
+        }
+        stage('Push Docker Image') {
+            steps {
+                script {
+                    // 登录 Docker 镜像仓库
+                    withDockerRegistry([credentialsId: "${DOCKER_CREDENTIALS_ID}", url: '']) {
+                        // 推送 Docker 镜像到镜像仓库
+                        sh 'docker push ${FRONTEND_IMAGE}'
+                    }
                 }
             }
         }
