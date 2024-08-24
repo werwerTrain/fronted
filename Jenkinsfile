@@ -21,8 +21,11 @@ pipeline {
         }
         stage('部署到k8s'){
             steps{
-                bat 'kubectl apply -f k8s/frontend-deployment.yaml'
-                bat 'kubectl apply -f k8s/frontend-service.yaml'
+                bat '''
+                    kubectl delete deployment frontend-deployment -n default
+                    kubectl apply -f k8s/frontend-deployment.yaml
+                    kubectl apply -f k8s/frontend-service.yaml
+                '''
                 echo '部署成功'
                 
             }
