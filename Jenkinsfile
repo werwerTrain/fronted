@@ -16,7 +16,6 @@ pipeline {
             }
         }
         stage('Build Frontend') { 
-            
             steps {
                 script {
                     // 构建前端 Docker 镜像
