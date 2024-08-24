@@ -10,7 +10,7 @@ RUN npm install
 
 # 复制项目文件并构建
 COPY . .
-RUN npm run serve
+RUN npm run build
 
 # 使用nginx作为发布阶段的基础镜像
 FROM nginx:alpine
