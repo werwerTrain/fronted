@@ -17,6 +17,7 @@ pipeline {
         }
         stage('Build Frontend') { 
             steps {
+                
                 script {
                     sh '''
                     docker rmi -f ${FRONTEND_IMAGE} || true
