@@ -14,7 +14,6 @@ pipeline {
                     docker rm frontend-container
                     docker rmi luluplum/frontend:latest
                     docker build -t luluplum/frontend -f dockerfile .
-                    docker run -d --name frontend-container luluplum/frontend
                 '''
                 echo '构建成功'
             }
