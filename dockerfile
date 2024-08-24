@@ -19,4 +19,4 @@ RUN npm run build --legacy-peer-deps
 # 暴露应用端口
 EXPOSE 3000
 # 启动应用
-CMD ["npm", "run", "serve"]
+CMD ["serve", "-s", "dist", "-l", "3000"]
