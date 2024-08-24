@@ -51,16 +51,16 @@ pipeline {
             steps {
                 script {
                     // 应用 Kubernetes 配置
-                    sh '''
-                    kubectl port-forward service/frontend-service 8081:80 &
-                    '''
+                    sh 'kubectl apply -f k8s/frontend-service.yaml'
                 }
             }
         }
         stage('Port forward'){
             steps{
                 script{
-                    sh'kubectl port-forward service/frontend-service 8081:80' &
+                    sh '''
+                    kubectl port-forward service/frontend-service 8081:80 &
+                    '''
                 }
             }
         }
