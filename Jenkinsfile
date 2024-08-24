@@ -55,15 +55,7 @@ pipeline {
                 }
             }
         }
-        stage('Port forward'){
-            steps{
-                script{
-                    sh '''
-                    kubectl port-forward service/frontend-service 8081:80 &
-                    '''
-                }
-            }
-        }
+        
 
         stage('Integration Test') {
             steps {
