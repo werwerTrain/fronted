@@ -13,7 +13,7 @@ spec:
         app: frontend
     spec:
       containers:
-      - name: frontend
+      - name: frontend-container
         image: luluplum/frontend:latest
         ports:
         - containerPort: 8080
