@@ -20,7 +20,7 @@ pipeline {
                 script {
                     // 构建前端 Docker 镜像
                     sh 'docker build -t ${FRONTEND_IMAGE} ./frontend'
-                    sh 'docker run -d --name frontend-container ${FRONTEND_IMAGE}'
+                    sh 'docker run -d ${FRONTEND_IMAGE}'
                 }
             }
         }
