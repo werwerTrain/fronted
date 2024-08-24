@@ -14,6 +14,7 @@ pipeline {
                     docker rm frontend
                     docker rmi frontend
                     docker build -t frontend -f dockerfile .
+                    docker run --name frontend frontend
                 '''
                 echo '构建成功'
             }
