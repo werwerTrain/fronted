@@ -24,7 +24,7 @@ pipeline {
                 }
             }
         }
-        
+       /* 
         stage('Push Docker Image') {
             steps {
                 script {
@@ -38,7 +38,7 @@ pipeline {
                 }
             }
         }
-        
+        */
         
 
         stage('Deploy to Kubernetes') {
