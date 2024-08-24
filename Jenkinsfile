@@ -10,10 +10,10 @@ pipeline {
         stage('构建运行前端镜像'){
             steps{
                 bat '''
-                    docker stop frontend
-                    docker rm frontend
-                    docker rmi frontend
-                    docker build -t frontend -f dockerfile .
+                    docker stop luluplum/frontend:latest
+                    docker rm luluplum/frontend:latest
+                    docker rmi luluplum/frontend:latest
+                    docker build -t luluplum/frontend -f dockerfile .
                 '''
                 echo '构建成功'
             }
