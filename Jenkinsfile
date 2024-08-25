@@ -19,12 +19,21 @@ pipeline {
             steps {
                 
                 script {
-                    //停止旧容器
-                    sh 'docker ps -q --filter "ancestor=${FRONTEND_IMAGE}"' 
-                    sh 'docker stop $CONTAINERS'
-                    //删除旧容器
-                    sh 'docker ps -a -q --filter "ancestor=${FRONTEND_IMAGE}"'
-                    sh 'docker rm $CONTAINERS'
+                     // 查找并停止旧的容器
+                    sh '''
+                    CONTAINERS=$(docker ps -q --filter "ancestor=${FRONTEND_IMAGE}")
+                    if [ -n "$CONTAINERS" ]; then
+                        docker stop $CONTAINERS
+                    fi
+                    '''
+            
+            // 删除停止的容器
+                    sh '''
+                    CONTAINERS=$(docker ps -a -q --filter "ancestor=${FRONTEND_IMAGE}")
+                    if [ -n "$CONTAINERS" ]; then
+                        docker rm $CONTAINERS
+                    fi
+                    '''
                     sh '''
                     docker rmi -f ${FRONTEND_IMAGE} || true
                     '''
