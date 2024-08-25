@@ -19,7 +19,7 @@ pipeline {
             steps {
                 
                 script {
-                     // 查找并停止旧的容器
+                    // 查找并停止旧的容器
                     sh '''
                     CONTAINERS=$(docker ps -q --filter "ancestor=${FRONTEND_IMAGE}")
                     if [ -n "$CONTAINERS" ]; then
@@ -27,7 +27,7 @@ pipeline {
                     fi
                     '''
             
-            // 删除停止的容器
+                    // 删除停止的容器
                     sh '''
                     CONTAINERS=$(docker ps -a -q --filter "ancestor=${FRONTEND_IMAGE}")
                     if [ -n "$CONTAINERS" ]; then
@@ -39,7 +39,7 @@ pipeline {
                     '''
                     // 构建前端 Docker 镜像
                     sh 'docker build -t ${FRONTEND_IMAGE} ./frontend'
-                    sh 'docker run -d ${FRONTEND_IMAGE}'
+                    //sh 'docker run -d ${FRONTEND_IMAGE}'
                     
                 }
             }
