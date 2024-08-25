@@ -19,6 +19,12 @@ pipeline {
             steps {
                 
                 script {
+                    //停止旧容器
+                    sh 'docker ps -q --filter "ancestor=${FRONTEND_IMAGE}"' 
+                    sh 'docker stop $CONTAINERS'
+                    //删除旧容器
+                    sh 'docker ps -a -q --filter "ancestor=${FRONTEND_IMAGE}"'
+                    sh 'docker rm $CONTAINERS'
                     sh '''
                     docker rmi -f ${FRONTEND_IMAGE} || true
                     '''
