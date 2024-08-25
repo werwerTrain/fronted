@@ -10,23 +10,22 @@ pipeline {
         stage('构建运行前端镜像'){
             steps{
                 // 查找并停止旧的容器
-                bat '''
-                FOR /F "tokens=*" %%i IN ('docker ps -q --filter "ancestor=frontend:latest"') DO (
-                    docker stop %%i
-                )
-                '''
+                powershell '''
+                $containers = docker ps -q --filter "ancestor=frontend:latest"
+                foreach ($container in $containers) {
+                    Write-Output "Stopping container $container"
+                    docker stop $container
+                }
 
-                // 删除停止的容器
-                bat '''
-                FOR /F "tokens=*" %%i IN ('docker ps -a -q --filter "ancestor=frontend:latest"') DO (
-                    docker rm %%i
-                )
+                $allContainers = docker ps -a -q --filter "ancestor=frontend:latest"
+                foreach ($container in $allContainers) {
+                    Write-Output "Removing container $container"
+                    docker rm $container
+                }
                 '''
-                bat '''
-                docker rmi -f frontend:latest
-                '''
+                bat 'docker rmi -f frontend:latest'
                 // 构建前端 Docker 镜像
-                bat 'docker build -t frontend -f Dockerfile .'
+                bat 'docker build -t frontend -f dockerfile .'
                 echo '构建成功'
             }
         }
