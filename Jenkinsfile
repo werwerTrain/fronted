@@ -29,6 +29,17 @@ pipeline {
                 echo '构建成功'
             }
         }
+
+        stage('Push Docker Image') {
+            steps {
+                script {
+                        bat '''
+                        echo 20050121Rabbit| docker login -u qiuer0121 --password-stdin
+                        docker push qiuer0121/frontend:latest
+                        '''
+                }
+            }
+        }
         
         stage('部署到k8s'){
             steps{
@@ -39,6 +50,19 @@ pipeline {
                 '''
                 echo '部署成功'
             }
+        }
+    }
+
+    post {
+        always {
+            // 这里可以添加一些清理步骤，例如清理工作目录或通知
+            bat 'docker system prune -f'
+        }
+        success {
+            echo 'Build and deployment succeeded!'
+        }
+        failure {
+            echo 'Build or deployment failed.'
         }
     }
 }
