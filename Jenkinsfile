@@ -7,6 +7,14 @@ pipeline {
                 echo '拉取成功'
             }
         }
+        stage('删除k8s中旧deploy'){
+            steps{
+                bat '''
+                kubectl delete -f k8s/frontend-deployment.yaml
+                kubectl delete -f k8s/frontend-service.yaml
+                '''
+            }
+        }
         stage('构建运行前端镜像'){
             steps{
                 // 查找并停止旧的容器
@@ -44,7 +52,6 @@ pipeline {
         stage('部署到k8s'){
             steps{
                 bat '''
-                kubectl delete -f k8s/frontend-deployment.yaml
                 kubectl apply -f k8s/frontend-deployment.yaml
                 kubectl apply -f k8s/frontend-service.yaml
                 '''
