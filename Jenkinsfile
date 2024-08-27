@@ -19,21 +19,21 @@ pipeline {
             steps{
                 // 查找并停止旧的容器
                 powershell '''
-                $containers = docker ps -q --filter "ancestor=bxr/frontend:latest"
+                $containers = docker ps -q --filter "ancestor=bxr0820/frontend:latest"
                 foreach ($container in $containers) {
                     Write-Output "Stopping container $container"
                     docker stop $container
                 }
 
-                $allContainers = docker ps -a -q --filter "ancestor=bxr/frontend:latest"
+                $allContainers = docker ps -a -q --filter "ancestor=bxr0820/frontend:latest"
                 foreach ($container in $allContainers) {
                     Write-Output "Removing container $container"
                     docker rm $container
                 }
                 '''
-                bat 'docker rmi -f bxr/frontend:latest'
+                bat 'docker rmi -f bxr0820/frontend:latest'
                 // 构建前端 Docker 镜像
-                bat 'docker build -t bxr/frontend -f dockerfile .'
+                bat 'docker build -t bxr0820/frontend -f dockerfile .'
                 echo '构建成功'
             }
         }
@@ -43,7 +43,7 @@ pipeline {
                 script {
                         bat '''
                         echo buxinran123| docker login -u bxr0820 --password-stdin
-                        docker push bxr/frontend:latest
+                        docker push bxr0820/frontend:latest
                         '''
                 }
             }
