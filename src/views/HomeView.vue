@@ -19,7 +19,7 @@
           <el-menu-item
             index="1"
             style="color: black; font-weight: bold; font-size: 17px"
-            >火车订订票</el-menu-item
+            >火车订票</el-menu-item
           >
           <el-menu-item
             index="2"
