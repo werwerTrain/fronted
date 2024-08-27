@@ -4,7 +4,7 @@ pipeline {
     environment {
         // 设置 Docker 镜像的标签
         FRONTEND_IMAGE = "luluplum/frontend:latest"
-        DOCKER_CREDENTIALS_ID = '8e726928-e52d-458d-8c3e-674e33cc5f38'
+        DOCKER_CREDENTIALS_ID = '9b671c50-14d3-407d-9fe7-de0463e569d2'
         DOCKER_PASSWORD = 'luluplum'
         DOCKER_USERNAME = 'woaixuexi0326'
     }
