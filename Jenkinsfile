@@ -4,7 +4,7 @@ pipeline {
     environment {
         // 设置 Docker 镜像的标签
         FRONTEND_IMAGE = "luluplum/frontend:latest"
-        DOCKER_CREDENTIALS_ID = '9b671c50-14d3-407d-9fe7-de0463e569d2'
+        DOCKER_CREDENTIALS_ID = 'b12d7312-000a-48e6-b92e-8b9ddbc67d49'
         DOCKER_PASSWORD = 'luluplum'
         DOCKER_USERNAME = 'woaixuexi0326'
     }
@@ -39,7 +39,6 @@ pipeline {
                     '''
                     // 构建前端 Docker 镜像
                     sh 'docker build -t ${FRONTEND_IMAGE} ./frontend'
-                    //sh 'docker run -d ${FRONTEND_IMAGE}'
                     
                 }
             }
