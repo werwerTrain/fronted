@@ -3,6 +3,7 @@ pipeline {
 
     environment {
         FRONTEND_IMAGE = "3181577132/frontend:latest"
+        KUBECONFIG = credentials('kubectl_id')
     }
 
     stages {
@@ -16,14 +17,14 @@ pipeline {
             }
         }
 
-        stage('Push Frontend Image') {
-            steps {
-                script {
-                    bat "echo Pushing Docker image: %FRONTEND_IMAGE%"
-                    bat "docker push %FRONTEND_IMAGE%"
-                }
-            }
-        }
+        // stage('Push Frontend Image') {
+        //     steps {
+        //         script {
+        //             bat "echo Pushing Docker image: %FRONTEND_IMAGE%"
+        //             bat "docker push %FRONTEND_IMAGE%"
+        //         }
+        //     }
+        // }
 
         stage('Deploy to Kubernetes') {
             steps {
